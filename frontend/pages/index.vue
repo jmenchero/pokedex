@@ -1,6 +1,8 @@
 <template>
   <div class="page">
-    <div class="page--filter"></div>
+    <div class="page--filter">
+      <FilterBox />
+    </div>
     <div class="page--list">
       <Card
         v-for="(pokemon, index) in pokemons"
