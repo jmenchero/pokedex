@@ -54,8 +54,8 @@ export default {
       this.image = pokemon.data.sprites.front_default
       this.id = pokemon.data.id
       this.types = pokemon.data.types
-      const species = await this.$axios.get(pokemon.data.species.url)
-      this.evolves = species.data.evolves_from_species.name
+      const species = await this.$axios.get(pokemon.data.species?.url)
+      this.evolves = species.data.evolves_from_species?.name
     },
   },
 }
