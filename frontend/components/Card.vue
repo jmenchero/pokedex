@@ -28,8 +28,18 @@ export default {
     }
   },
   async fetch() {
-    const response = await this.$axios.get(this.url)
-    this.image = response.data.sprites.front_default
+    await this.loadCard()
+  },
+  watch: {
+    url() {
+      this.loadCard()
+    },
+  },
+  methods: {
+    async loadCard() {
+      const response = await this.$axios.get(this.url)
+      this.image = response.data.sprites.front_default
+    },
   },
 }
 </script>
