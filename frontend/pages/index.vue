@@ -32,7 +32,7 @@ export default {
     filteredPokemons() {
       if (this.filter && this.filter.length > 2) {
         return this.allPokemons.filter((pokemon) =>
-          pokemon.name.toLowerCase().includes(this.filter)
+          pokemon.name.toLowerCase().includes(this.filter.toLowerCase())
         )
       } else {
         return this.allPokemons
