@@ -69,11 +69,13 @@ body {
   left: auto;
   height: 50px;
   margin: 10px;
+  z-index: 1;
 }
 
 .page--list {
   display: flex;
   flex-wrap: wrap;
   align-content: space-around;
+  z-index: 0;
 }
 </style>
