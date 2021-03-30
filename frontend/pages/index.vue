@@ -93,6 +93,7 @@ html {
   display: flex;
   flex-wrap: wrap;
   align-content: space-around;
+  justify-content: center;
   z-index: 0;
 }
 </style>
