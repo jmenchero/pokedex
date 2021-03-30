@@ -1,5 +1,5 @@
 <template>
-  <div class="page">
+  <div ref="page" class="page">
     <div class="page--filter">
       <FilterBox @filter="filterPokemons" />
     </div>
@@ -20,6 +20,7 @@ export default {
     return {
       allPokemons: [],
       filter: '',
+      limit: 15,
     }
   },
   async fetch() {
@@ -31,24 +32,43 @@ export default {
   computed: {
     filteredPokemons() {
       if (this.filter && this.filter.length > 2) {
-        return this.allPokemons.filter((pokemon) =>
-          pokemon.name.toLowerCase().includes(this.filter.toLowerCase())
-        )
-      } else {
         return this.allPokemons
+          .filter((pokemon) =>
+            pokemon.name.toLowerCase().includes(this.filter.toLowerCase())
+          )
+          .slice(0, this.limit)
+      } else {
+        return this.allPokemons.slice(0, this.limit)
       }
     },
   },
+  mounted() {
+    this.loadNextPokemons()
+  },
   methods: {
     filterPokemons(filter) {
+      this.limit = 15
       this.filter = filter
+    },
+    loadNextPokemons() {
+      window.onscroll = function () {
+        const alreadyDisplayedPixels =
+          document.documentElement.scrollTop + window.innerHeight
+        const noTriggerArea = this.$refs.page.offsetHeight - 300
+        if (alreadyDisplayedPixels >= noTriggerArea) {
+          this.limit += 5
+        }
+        console.log(alreadyDisplayedPixels)
+        console.log(noTriggerArea)
+        console.log(this.limit)
+      }.bind(this)
     },
   },
 }
 </script>
 
 <style>
-body {
+html {
   background: #ffe62c;
   height: 100vh;
   width: 100vw;
