@@ -58,9 +58,6 @@ export default {
         if (alreadyDisplayedPixels >= noTriggerArea) {
           this.limit += 5
         }
-        console.log(alreadyDisplayedPixels)
-        console.log(noTriggerArea)
-        console.log(this.limit)
       }.bind(this)
     },
   },
