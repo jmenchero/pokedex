@@ -1,11 +1,11 @@
 <template>
   <div class="page">
     <div class="page--filter">
-      <FilterBox />
+      <FilterBox @filter="filterPokemons" />
     </div>
     <div class="page--list">
       <Card
-        v-for="(pokemon, index) in pokemons"
+        v-for="(pokemon, index) in filteredPokemons"
         :key="index"
         :title="pokemon.name"
         :url="pokemon.url"
@@ -18,14 +18,31 @@
 export default {
   data() {
     return {
-      pokemons: [],
+      allPokemons: [],
+      filter: '',
     }
   },
   async fetch() {
     const response = await this.$axios.get(
-      'https://pokeapi.co/api/v2/pokemon?limit=50'
+      'https://pokeapi.co/api/v2/pokemon?limit=1500'
     )
-    this.pokemons = response.data.results
+    this.allPokemons = response.data.results
+  },
+  computed: {
+    filteredPokemons() {
+      if (this.filter && this.filter.length > 2) {
+        return this.allPokemons.filter((pokemon) =>
+          pokemon.name.toLowerCase().includes(this.filter)
+        )
+      } else {
+        return this.allPokemons
+      }
+    },
+  },
+  methods: {
+    filterPokemons(filter) {
+      this.filter = filter
+    },
   },
 }
 </script>

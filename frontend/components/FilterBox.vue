@@ -1,11 +1,21 @@
 <template>
-  <div class="filter">
-    <p>Filtra pokemons por nombre...</p>
-  </div>
+  <input
+    v-model="filter"
+    class="filter"
+    type="text"
+    placeholder="Filtra pokemons por nombre..."
+    @keyup="$emit('filter', filter)"
+  />
 </template>
 
 <script>
-export default {}
+export default {
+  data() {
+    return {
+      filter: '',
+    }
+  },
+}
 </script>
 
 <style scoped>
@@ -13,12 +23,10 @@ export default {}
   background: #ffffff;
   border: 1px solid #eaebeb;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  text-align: center;
   height: 100%;
   width: 100%;
   font-size: 20px;
   font-weight: 100;
-  color: #c9c9c7;
 }
 </style>
