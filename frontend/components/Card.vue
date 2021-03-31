@@ -108,6 +108,13 @@ export default {
   background: #ffffff;
   border: 1px solid #d5d6d6;
   box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition-duration: 0.1s;
+}
+
+.card:not(.card-fullscreen):hover {
+  transform: scale(1.02);
+  color: #60381d;
 }
 
 .card-fullscreen {
@@ -117,6 +124,10 @@ export default {
   left: 0;
   top: 0;
   z-index: 100;
+}
+
+.card-fullscreen:hover {
+  cursor: default;
 }
 
 .card--picture {

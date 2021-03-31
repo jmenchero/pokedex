@@ -18,7 +18,6 @@ La mayor parte de los ficheros han sido autogenerados por Nuxt, por lo que los f
 
 ## To-Do's
 
-- FEAT: Mark cards as clickable
 - FEAT: Close card button
 - FEAT: Pokemon detail layout
 - FEAT: URL opens detail
