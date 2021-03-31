@@ -33,6 +33,14 @@
               <p class="highlight--value">{{ evolves }}</p>
             </div>
           </transition>
+          <div v-if="open" id="chart">
+            <ApexChart
+              type="radar"
+              height="260"
+              :options="chartOptions"
+              :series="stats"
+            />
+          </div>
         </div>
       </div>
     </div>
@@ -40,7 +48,12 @@
 </template>
 
 <script>
+import VueApexCharts from 'vue-apexcharts'
+
 export default {
+  components: {
+    ApexChart: VueApexCharts,
+  },
   props: {
     title: {
       type: String,
@@ -61,6 +74,31 @@ export default {
       types: [],
       sprites: [],
       evolves: undefined,
+      stats: [],
+      chartOptions: {
+        chart: {
+          toolbar: {
+            show: false,
+          },
+        },
+        dataLabels: {
+          enabled: true,
+        },
+        colors: [''],
+        tooltip: {
+          enabled: false,
+        },
+        xaxis: {
+          categories: [
+            'hp',
+            'attack',
+            'defense',
+            'special attack',
+            'special defense',
+            'speed',
+          ],
+        },
+      },
     }
   },
   async fetch() {
@@ -83,13 +121,14 @@ export default {
   methods: {
     async loadCard() {
       const pokemon = await this.$axios.get(this.url)
-      this.sprites = this.getAllSprites(pokemon.data.sprites)
+      this.sprites = this.getSprites(pokemon.data.sprites)
+      this.stats = this.getStats(pokemon.data.stats)
       this.id = pokemon.data.id
       this.types = pokemon.data.types
       const species = await this.$axios.get(pokemon.data.species?.url)
       this.evolves = species.data.evolves_from_species?.name
     },
-    getAllSprites(sprites) {
+    getSprites(sprites) {
       const allSprites = []
       allSprites.push(sprites.front_default)
       allSprites.push(sprites.back_default)
@@ -108,6 +147,12 @@ export default {
       )
       return definedSprites
     },
+    getStats(stats) {
+      const formattedStats = [
+        { name: this.title, data: stats.map((_) => _.base_stat) },
+      ]
+      return formattedStats
+    },
   },
 }
 </script>
@@ -117,6 +162,11 @@ export default {
   height: 280px;
   width: 240px;
   margin: 10px;
+}
+
+#chart {
+  position: absolute;
+  margin-top: 40px;
 }
 
 .card {
