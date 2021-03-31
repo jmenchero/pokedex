@@ -31,7 +31,6 @@ La mayor parte de los ficheros han sido autogenerados por Nuxt, por lo que los f
 - FEAT: Search filters
 - FEAT: Improve styles
 - FEAT: Add 404 not found
-- DOC: Instructions for running locally
 - REF: Move scroll functionality and routing functionality to separate files
 - REF: Clean unused Nuxt directories and readmes
 - REF: Avoid pixel sizing

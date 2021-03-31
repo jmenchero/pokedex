@@ -33,10 +33,10 @@
               <p class="highlight--value">{{ evolves }}</p>
             </div>
           </transition>
-          <div v-if="open" id="chart">
+          <div v-if="open" class="chart">
             <ApexChart
               type="radar"
-              height="260"
+              width="480"
               :options="chartOptions"
               :series="stats"
             />
@@ -164,9 +164,12 @@ export default {
   margin: 10px;
 }
 
-#chart {
-  position: absolute;
-  margin-top: 40px;
+.chart {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  align-items: center;
+  transform: translateY(-25%);
 }
 
 .card {
