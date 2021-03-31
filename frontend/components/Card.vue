@@ -8,6 +8,7 @@
       <div class="card--picture">
         <span class="card--id">ID / {{ id }}</span>
         <img v-if="image" :src="image" :alt="title" />
+        <img v-else src="@/assets/png/poke-ball.png" :alt="title" />
       </div>
       <div class="card--meta">
         <p class="card--title">{{ title }}</p>
@@ -33,10 +34,10 @@ export default {
   },
   data() {
     return {
-      image: null,
+      image: undefined,
       id: 0,
       types: [],
-      evolves: '',
+      evolves: undefined,
       fullscreen: false,
     }
   },
@@ -52,6 +53,7 @@ export default {
     async loadCard() {
       const pokemon = await this.$axios.get(this.url)
       this.image = pokemon.data.sprites.front_default
+      if (!this.image) this.image = this.$options.data().image
       this.id = pokemon.data.id
       this.types = pokemon.data.types
       const species = await this.$axios.get(pokemon.data.species?.url)
