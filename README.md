@@ -10,14 +10,14 @@ Proyecto Vue de prueba que utiliza [Pokeapi](https://pokeapi.co/) para mostrar u
 
 La mayor parte de los ficheros han sido autogenerados por Nuxt, por lo que los ficheros interesantes a evaluar con la logica de la aplicacion son:
 
-- [index.vue](pages/index.vue): Layout, logica de peticiones, filtrado y scroll infinito.
-- [Card.vue](components/Card.vue): Maquetacion de las tarjetas.
-- [FilterBox.vue](components/FilterBox.vue): Maquetacion de la barra de filtrado.
-- [Loading.vue](components/Loading.vue): Maquetacion de la animacion de loading.
+- [index.vue](frontend/pages/index.vue): Layout, logica de peticiones, filtrado y scroll infinito.
+- [Card.vue](frontend/components/Card.vue): Maquetacion de las tarjetas.
+- [FilterBox.vue](frontend/components/FilterBox.vue): Maquetacion de la barra de filtrado.
+- [Loading.vue](frontend/components/Loading.vue): Maquetacion de la animacion de loading.
+- [animations.css](frontend/assets/css/animations.css): Maquetacion de la animacion de loading.
 
 ## To-Do's
 
-- FEAT: Transitions for loading card
 - FEAT: Mark cards as clickable
 - FEAT: Close card button
 - FEAT: Pokemon detail layout

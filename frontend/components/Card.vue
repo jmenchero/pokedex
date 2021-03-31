@@ -1,29 +1,38 @@
 <template>
-  <div class="holder">
-    <div
-      class="card"
-      :class="{ 'card-fullscreen': fullscreen }"
-      @click="toggleCard"
-    >
-      <div class="card--picture">
-        <span class="card--id">ID / {{ id }}</span>
-        <img v-if="image" :src="image" :alt="title" />
-        <img v-else src="@/assets/png/poke-ball.png" :alt="title" />
-      </div>
-      <div class="card--meta">
-        <p class="card--title">{{ title }}</p>
-        <div class="tags">
-          <div v-for="(type, index) in types" :key="index" class="tags--tag">
-            {{ type.type.name }}
-          </div>
+  <transition name="fade-in">
+    <div class="holder">
+      <div
+        class="card"
+        :class="{ 'card-fullscreen': fullscreen }"
+        @click="toggleCard"
+      >
+        <div class="card--picture">
+          <span class="card--id">ID / {{ id }}</span>
+          <img v-if="image" :src="image" :alt="title" />
+          <img
+            v-else
+            class="card--loading"
+            src="@/assets/png/poke-ball.png"
+            :alt="title"
+          />
         </div>
-        <div v-if="evolves" class="highlight">
-          <p class="highlight--header">Evoluciona de:</p>
-          <p class="highlight--value">{{ evolves }}</p>
+        <div class="card--meta">
+          <p class="card--title">{{ title }}</p>
+          <div class="tags">
+            <div v-for="(type, index) in types" :key="index" class="tags--tag">
+              {{ type.type.name }}
+            </div>
+          </div>
+          <transition name="fade-in-right">
+            <div v-if="evolves" class="highlight">
+              <p class="highlight--header">Evoluciona de:</p>
+              <p class="highlight--value">{{ evolves }}</p>
+            </div>
+          </transition>
         </div>
       </div>
     </div>
-  </div>
+  </transition>
 </template>
 
 <script>
@@ -120,6 +129,11 @@ export default {
   position: relative;
 }
 
+.card--loading {
+  animation: shake 0.82s infinite cubic-bezier(0.36, 0.07, 0.19, 0.97) forwards;
+  transform: translate3d(0, 0, 0);
+}
+
 .card--id {
   position: absolute;
   left: 0;
@@ -173,5 +187,21 @@ export default {
 .highlight--value {
   font-size: 22px;
   font-weight: 300;
+}
+
+.fade-in-enter-active {
+  animation: fadeIn 0.2s cubic-bezier(0.36, 0.07, 0.19, 0.97) forwards;
+}
+
+.fade-in-leave-active {
+  animation: fadeIn 0.2s cubic-bezier(0.36, 0.07, 0.19, 0.97) reverse;
+}
+
+.fade-in-right-enter-active {
+  animation: fadeInRight 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97) forwards;
+}
+
+.fade-in-right-leave-active {
+  animation: fadeInRight 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97) reverse;
 }
 </style>
