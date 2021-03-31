@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="vertical-fill" x1="0.5" y1="1" x2="0.5" y2="0">
+      <stop offset="0" stop-color="#ffe62c">
+        <animate dur="2s" attributeName="offset" fill="freeze" from="0" to="1" />
+      </stop>
+      <stop offset="0" stop-color="#fff">
+        <animate dur="2s" attributeName="offset" fill="freeze" from="0" to="1" />
+      </stop>
+      
+    </linearGradient>
+  </defs>
+  <path style="stroke: rgb(0, 0, 0); fill: url(#vertical-fill); paint-order: fill; stroke-width: 0px;" d="M 271.519 480.204 L 216.327 429.808 L 247.18 391.263 L 180.497 333.65 L 229.979 281.756 L 126.924 205.462 C 126.92 205.456 292.983 -3.64 303.48 10.791 C 309.152 1.448 420.87 125.324 412.551 139.026 C 402.139 142.61 263.537 218.869 266.718 222.05 L 327.824 284.681 L 258.221 340.033 L 302.663 380.026 L 253.974 435.414 L 283.056 468.908 L 271.519 480.204 Z"/>
+</svg>

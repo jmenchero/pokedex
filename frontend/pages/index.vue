@@ -1,26 +1,32 @@
 <template>
-  <div ref="page" class="page">
-    <div class="page--filter">
-      <FilterBox @filter="filterPokemons" />
-    </div>
-    <div class="page--list">
-      <Card
-        v-for="(pokemon, index) in filteredPokemons"
-        :key="index"
-        :title="pokemon.name"
-        :url="pokemon.url"
-      />
+  <div>
+    <Loading v-if="!loaded" />
+    <div v-if="loaded" ref="page" class="page">
+      <div class="page--filter">
+        <FilterBox @filter="filterPokemons" />
+      </div>
+      <div class="page--list">
+        <Card
+          v-for="(pokemon, index) in filteredPokemons"
+          :key="index"
+          :title="pokemon.name"
+          :url="pokemon.url"
+        />
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import Loading from '../components/Loading.vue'
 export default {
+  components: { Loading },
   data() {
     return {
       allPokemons: [],
       filter: '',
       limit: 15,
+      loaded: false,
     }
   },
   async fetch() {
@@ -44,6 +50,7 @@ export default {
   },
   mounted() {
     this.loadNextPokemons()
+    this.changeBackgroundAfterLoading()
   },
   methods: {
     filterPokemons(filter) {
@@ -60,13 +67,18 @@ export default {
         }
       }.bind(this)
     },
+    changeBackgroundAfterLoading() {
+      setTimeout(() => {
+        document.body.style.backgroundColor = '#ffe62c'
+        this.loaded = true
+      }, 3000)
+    },
   },
 }
 </script>
 
 <style>
 html {
-  background: #ffe62c;
   height: 100vh;
   width: 100vw;
   overflow: hidden;
