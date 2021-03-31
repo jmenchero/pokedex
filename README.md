@@ -15,16 +15,20 @@ La mayor parte de los ficheros han sido autogenerados por Nuxt, por lo que los f
 - [FilterBox.vue](frontend/components/FilterBox.vue): Maquetacion de la barra de filtrado.
 - [Loading.vue](frontend/components/Loading.vue): Maquetacion de la animacion de loading.
 - [animations.css](frontend/assets/css/animations.css): Maquetacion de la animacion de loading.
+- [nuxt.config.js](frontend/nuxt.config.js): Configuracion del vue-router.
 
 ## To-Do's
 
+- BUG: Faking loading with sleep makes background delay with direct url (eg http://localhost:3000/pokemons/charmeleon)
+- FEAT: Click on evolution opens pokemon
 - FEAT: Close card button
 - FEAT: Pokemon detail layout
-- FEAT: URL opens detail
 - FEAT: Search filters
 - FEAT: Improve styles
-- FEAT: Click on evolution opens pokemon
+- FEAT: Add 404 not found
 - DOC: Instructions for running locally
+- REF: Move scroll functionality and routing functionality to separate files
+- REF: Clean unused Nuxt directories and readmes
 - REF: Avoid pixel sizing
 - REF: Dynamically requesting entire pokemons list (not hardcoded to 15000)
 - REF: Avoid requesting data inside Card component (send data from parent)

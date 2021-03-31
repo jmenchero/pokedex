@@ -1,4 +1,21 @@
 export default {
+  // Mobile dev server
+  // server: {
+  //   port: 8000, // default: 3000
+  //   host: '0.0.0.0', // default: localhost
+  // },
+
+  // Router
+  router: {
+    extendRoutes(routes, resolve) {
+      routes.push({
+        name: 'custom',
+        path: '/pokemons/:name',
+        component: resolve(__dirname, 'pages/index.vue'),
+      })
+    },
+  },
+
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
   ssr: false,
 

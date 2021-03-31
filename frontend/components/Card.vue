@@ -3,8 +3,8 @@
     <div class="holder">
       <div
         class="card"
-        :class="{ 'card-fullscreen': fullscreen }"
-        @click="toggleCard"
+        :class="{ 'card-fullscreen': open }"
+        @click="$emit('toggle', 'hello')"
       >
         <div class="card--picture">
           <span class="card--id">ID / {{ id }}</span>
@@ -36,10 +36,6 @@
 </template>
 
 <script>
-function noScroll() {
-  window.scrollTo(0, 0)
-}
-
 export default {
   props: {
     title: {
@@ -50,6 +46,10 @@ export default {
       type: String,
       default: '',
     },
+    open: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
@@ -57,8 +57,6 @@ export default {
       id: 0,
       types: [],
       evolves: undefined,
-      fullscreen: false,
-      previousScroll: undefined,
     }
   },
   async fetch() {
@@ -78,18 +76,6 @@ export default {
       this.types = pokemon.data.types
       const species = await this.$axios.get(pokemon.data.species?.url)
       this.evolves = species.data.evolves_from_species?.name
-    },
-    toggleCard() {
-      this.fullscreen = !this.fullscreen
-      if (this.previousScroll === undefined) {
-        this.previousScroll = document.documentElement.scrollTop
-        window.addEventListener('scroll', noScroll, true)
-        window.scrollTo(0, 0)
-      } else {
-        window.removeEventListener('scroll', noScroll, true)
-        window.scrollTo(0, this.previousScroll)
-        this.previousScroll = undefined
-      }
     },
   },
 }

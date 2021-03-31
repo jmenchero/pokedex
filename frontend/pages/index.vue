@@ -11,6 +11,8 @@
           :key="index"
           :title="pokemon.name"
           :url="pokemon.url"
+          :open="pokemon.open"
+          @toggle="toggleCard(pokemon)"
         />
       </div>
     </div>
@@ -18,21 +20,25 @@
 </template>
 
 <script>
-import Loading from '../components/Loading.vue'
+function noScroll() {
+  window.scrollTo(0, 0)
+}
+
 export default {
-  components: { Loading },
   data() {
     return {
       allPokemons: [],
       filter: '',
       limit: 15,
       loaded: false,
+      previousScroll: undefined,
     }
   },
   async fetch() {
     const response = await this.$axios.get(
       'https://pokeapi.co/api/v2/pokemon?limit=1500'
     )
+    response.data.results.forEach((_) => (_.open = false))
     this.allPokemons = response.data.results
   },
   computed: {
@@ -48,7 +54,19 @@ export default {
       }
     },
   },
-  mounted() {
+  async mounted() {
+    if (window.location.href.includes('pokemons')) {
+      await this.$fetch()
+      this.loaded = true
+      const name = window.location.href.substring(
+        window.location.href.lastIndexOf('/') + 1
+      )
+      const pokemon = this.allPokemons.find(
+        (_) => _.name.localeCompare(name) === 0
+      )
+      this.filteredPokemons.push(pokemon)
+      this.toggleCard(pokemon)
+    }
     this.loadNextPokemons()
     this.changeBackgroundAfterLoading()
   },
@@ -72,6 +90,30 @@ export default {
         document.body.style.backgroundColor = '#ffe62c'
         this.loaded = true
       }, 3000)
+    },
+    toggleCard(pokemon) {
+      pokemon.open = !pokemon.open
+      if (this.previousScroll === undefined) {
+        if (!window.location.href.includes('pokemons')) {
+          history.pushState(
+            {},
+            null,
+            window.location.href + 'pokemons/' + pokemon.name
+          )
+        }
+        this.previousScroll = document.documentElement.scrollTop
+        window.addEventListener('scroll', noScroll, true)
+        window.scrollTo(0, 0)
+      } else {
+        history.pushState(
+          {},
+          null,
+          window.location.protocol + '//' + window.location.host
+        )
+        window.removeEventListener('scroll', noScroll, true)
+        window.scrollTo(0, this.previousScroll)
+        this.previousScroll = undefined
+      }
     },
   },
 }
