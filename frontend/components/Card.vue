@@ -8,12 +8,16 @@
       >
         <div class="card--picture">
           <span class="card--id">ID / {{ id }}</span>
-          <img v-if="image" :src="image" :alt="title" />
           <img
-            v-else
+            v-if="displayedSprites.length === 0"
             class="card--loading"
             src="@/assets/png/poke-ball.png"
             :alt="title"
+          />
+          <img
+            v-for="(sprite, index) in displayedSprites"
+            :key="index"
+            :src="sprite"
           />
         </div>
         <div class="card--meta">
@@ -53,14 +57,23 @@ export default {
   },
   data() {
     return {
-      image: undefined,
       id: 0,
       types: [],
+      sprites: [],
       evolves: undefined,
     }
   },
   async fetch() {
     await this.loadCard()
+  },
+  computed: {
+    displayedSprites() {
+      if (this.open) {
+        return this.sprites.slice(0, 3)
+      } else {
+        return this.sprites.slice(0, 1)
+      }
+    },
   },
   watch: {
     url() {
@@ -70,12 +83,30 @@ export default {
   methods: {
     async loadCard() {
       const pokemon = await this.$axios.get(this.url)
-      this.image = pokemon.data.sprites.front_default
-      if (!this.image) this.image = this.$options.data().image
+      this.sprites = this.getAllSprites(pokemon.data.sprites)
       this.id = pokemon.data.id
       this.types = pokemon.data.types
       const species = await this.$axios.get(pokemon.data.species?.url)
       this.evolves = species.data.evolves_from_species?.name
+    },
+    getAllSprites(sprites) {
+      const allSprites = []
+      allSprites.push(sprites.front_default)
+      allSprites.push(sprites.back_default)
+      allSprites.push(sprites.front_female)
+      allSprites.push(sprites.back_female)
+      allSprites.push(sprites.front_shiny)
+      allSprites.push(sprites.back_shiny)
+      allSprites.push(sprites.front_shiny_female)
+      allSprites.push(sprites.back_shiny_female)
+      allSprites.push(sprites.back_shiny_female)
+      allSprites.push(sprites.dream_world?.front_default)
+      allSprites.push(sprites.dream_world?.front_female)
+      allSprites.push(sprites?.['official-artwork']?.front_default)
+      const definedSprites = allSprites.filter(
+        (_) => ![undefined, null].includes(_)
+      )
+      return definedSprites
     },
   },
 }

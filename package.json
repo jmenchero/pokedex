@@ -6,5 +6,8 @@
     "dev": "cd frontend && yarn dev",
     "build": "cd frontend && yarn build"
   },
-  "dependencies": {}
+  "dependencies": {
+    "apexcharts": "^3.26.0",
+    "vue-apexcharts": "^1.6.0"
+  }
 }
