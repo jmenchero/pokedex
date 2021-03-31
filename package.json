@@ -4,10 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "cd frontend && yarn dev",
-    "build": "cd frontend && yarn build"
-  },
-  "dependencies": {
-    "apexcharts": "^3.26.0",
-    "vue-apexcharts": "^1.6.0"
+    "build": "cd frontend && yarn build",
+    "install": "cd frontend && yarn install"
   }
 }
