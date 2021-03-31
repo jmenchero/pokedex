@@ -17,7 +17,7 @@ La mayor parte de los ficheros han sido autogenerados por Nuxt, por lo que los f
 
 ## To-Do's
 
-- BUG: Loading intro doesn't render properly on mobile
+- FEAT: Display detail over the list not full page
 - FEAT: Transitions for loading card
 - FEAT: Mark cards as clickable
 - FEAT: Close card button
@@ -26,6 +26,7 @@ La mayor parte de los ficheros han sido autogenerados por Nuxt, por lo que los f
 - FEAT: Search filters
 - FEAT: Improve styles
 - FEAT: Click on evolution opens pokemon
+- DOC: Instructions for running locally
 - REF: Avoid pixel sizing
 - REF: Dynamically requesting entire pokemons list (not hardcoded to 15000)
 - REF: Avoid requesting data inside Card component (send data from parent)

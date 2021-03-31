@@ -1,6 +1,8 @@
 <template>
-  <div class="background">
-    <img class="pikachu-tail" src="@/assets/svg/tail.svg" />
+  <div class="centered">
+    <div class="zoom">
+      <img class="shake" src="@/assets/svg/tail.svg" />
+    </div>
   </div>
 </template>
 
@@ -9,21 +11,25 @@ export default {}
 </script>
 
 <style>
-.background {
-  z-index: -1;
+.centered {
   height: 100px;
   position: fixed;
   top: 50%;
   left: 50%;
-  animation: zoom 1s cubic-bezier(0.36, 0.07, 0.19, 0.97) forwards;
-  animation-delay: 2.5s;
+  transform: translate(-50%, -50%);
+}
+
+.zoom {
+  height: 100%;
+  animation: zoom 1s cubic-bezier(0.36, 0.07, 0.19, 0.97) 2.5s forwards;
   transform: scale(1);
+  padding: 10px;
   overflow: hidden;
 }
 
-.pikachu-tail {
+.shake {
   height: 100%;
-  animation: shake 0.82s 3 cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+  animation: shake 0.82s 3 cubic-bezier(0.36, 0.07, 0.19, 0.97) forwards;
   transform: translate3d(0, 0, 0);
 }
 
@@ -42,10 +48,12 @@ export default {}
   70% {
     transform: translate3d(-4px, 4px, 0);
   }
-  100%,
   40%,
   60% {
     transform: translate3d(4px, -4px, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
   }
 }
 
@@ -54,7 +62,7 @@ export default {}
     transform: scale(1);
   }
   100% {
-    transform: scale(2000);
+    transform: scale(1000);
   }
 }
 </style>
