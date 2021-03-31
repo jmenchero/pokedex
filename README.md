@@ -17,7 +17,6 @@ La mayor parte de los ficheros han sido autogenerados por Nuxt, por lo que los f
 
 ## To-Do's
 
-- FEAT: Display detail over the list not full page
 - FEAT: Transitions for loading card
 - FEAT: Mark cards as clickable
 - FEAT: Close card button

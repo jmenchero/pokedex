@@ -84,10 +84,20 @@ html {
   overflow: hidden;
   overflow-y: scroll;
   font-family: 'Roboto', sans-serif;
+  padding-top: 0;
+  margin-top: 0;
+}
+
+body {
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  margin: 0;
 }
 
 .page {
   max-width: 780px;
+  position: relative;
   margin: 0 auto;
 }
 
@@ -97,7 +107,7 @@ html {
   top: 15px;
   left: auto;
   height: 50px;
-  margin: 10px;
+  margin: 0 10px;
   z-index: 1;
 }
 
@@ -106,6 +116,7 @@ html {
   flex-wrap: wrap;
   align-content: space-around;
   justify-content: center;
+  margin-top: 30px;
   z-index: 0;
 }
 </style>

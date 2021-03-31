@@ -3,7 +3,7 @@
     <div
       class="card"
       :class="{ 'card-fullscreen': fullscreen }"
-      @click="fullscreen = !fullscreen"
+      @click="toggleCard"
     >
       <div class="card--picture">
         <span class="card--id">ID / {{ id }}</span>
@@ -27,10 +27,20 @@
 </template>
 
 <script>
+function noScroll() {
+  window.scrollTo(0, 0)
+}
+
 export default {
   props: {
-    title: String,
-    url: String,
+    title: {
+      type: String,
+      default: '',
+    },
+    url: {
+      type: String,
+      default: '',
+    },
   },
   data() {
     return {
@@ -39,6 +49,7 @@ export default {
       types: [],
       evolves: undefined,
       fullscreen: false,
+      previousScroll: undefined,
     }
   },
   async fetch() {
@@ -59,6 +70,18 @@ export default {
       const species = await this.$axios.get(pokemon.data.species?.url)
       this.evolves = species.data.evolves_from_species?.name
     },
+    toggleCard() {
+      this.fullscreen = !this.fullscreen
+      if (this.previousScroll === undefined) {
+        this.previousScroll = document.documentElement.scrollTop
+        window.addEventListener('scroll', noScroll, true)
+        window.scrollTo(0, 0)
+      } else {
+        window.removeEventListener('scroll', noScroll, true)
+        window.scrollTo(0, this.previousScroll)
+        this.previousScroll = undefined
+      }
+    },
   },
 }
 </script>
@@ -76,13 +99,11 @@ export default {
   background: #ffffff;
   border: 1px solid #d5d6d6;
   box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.2);
-  -webkit-box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.2);
-  -moz-box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.2);
 }
 
 .card-fullscreen {
-  position: fixed;
-  height: 100%;
+  position: absolute;
+  height: 100vh;
   width: 100%;
   left: 0;
   top: 0;
